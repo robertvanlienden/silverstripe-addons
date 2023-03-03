@@ -7,7 +7,8 @@ But you can also use this module stand-alone!
 - SilverStripe 4
 
 ## Installation
-`composer require robertvanlienden/silverstripe-addons`
+* `composer require robertvanlienden/silverstripe-addons`
+* `dev/build?flush=all`
 
 If you want some example how to implement features in your own template; View `robertvanlienden/silverstripe-bulma-portfolio-theme`.
 
