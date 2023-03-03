@@ -1,6 +1,6 @@
 {
   "name": "robertvanlienden/silverstripe-addons",
-  "description": "A addon to add ",
+  "description": "A addon that adds some simple features to SilverStripe",
   "type": "silverstripe-vendormodule",
   "keywords": [
     "silverstripe",
