@@ -1,0 +1,31 @@
+{
+  "name": "robertvanlienden/silverstripe-addons",
+  "description": "A addon to add ",
+  "type": "silverstripe-vendormodule",
+  "keywords": [
+    "silverstripe",
+    "addon"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Robert van Lienden",
+      "email": "mail@robertvanlienden.nl"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=8.0",
+    "silverstripe/admin": "^1.7@stable",
+    "silverstripe/cms": "^4.8@stable",
+    "silverstripe/vendor-plugin": "^1.0",
+    "gorriecoe/silverstripe-linkfield": "^1.0",
+    "silverstripe/lumberjack": "^2.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "RobertVanLienden\\SilverStripeAddons\\": "src/"
+    }
+  }
+}

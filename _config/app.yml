@@ -1,0 +1,12 @@
+---
+Name: silverstripeaddons
+---
+Page:
+  extensions:
+    - RobertVanLienden\SilverStripeAddons\Extensions\PageExtension
+PageController:
+  extensions:
+    - RobertVanLienden\SilverStripeAddons\Extensions\PageControllerExtension
+Silverstripe\SiteConfig\SiteConfig:
+  extensions:
+    - RobertVanLienden\SilverStripeAddons\Extensions\SiteConfigExtension
