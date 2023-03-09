@@ -20,7 +20,7 @@ If you want some example how to implement features in your own template; View `r
   * Slideshow images
 
 ## License
-This theme is published under MIT License.
+This module is published under MIT License.
 
 If you use this theme commercial and make money with this theme, please be kind and do a donation with PayPal (see Donations below).
 
