@@ -16,7 +16,11 @@ class ItemDetailPage extends \Page
     private static string $icon_class = 'font-icon-p-article';
     private static string $description = 'A portfolio item page';
 
-    private static bool $can_be_root = false;
+    private static $show_in_sitetree = false;
+
+    private static $can_be_root = false;
+
+    private static $allowed_children = [];
 
     private static array $db = [
         'ProjectSummary' => 'HTMLText',

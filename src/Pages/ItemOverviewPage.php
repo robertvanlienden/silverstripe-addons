@@ -2,11 +2,13 @@
 
 namespace RobertVanLienden\SilverStripeAddons\Pages;
 
+use Restruct\GridFieldSiteTreeButtons\GridFieldAddNewSiteTreeItemButton;
 use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\FieldList;
 use SilverStripe\Forms\GridField\GridField;
-use SilverStripe\Forms\GridField\GridFieldAddNewButton;
-use SilverStripe\Forms\GridField\GridFieldConfig_RecordEditor;
+use SilverStripe\Lumberjack\Forms\GridFieldSiteTreeAddNewButton;
 use SilverStripe\ORM\DataList;
+use SilverStripe\Lumberjack\Forms\GridFieldConfig_Lumberjack;
 
 /**
  *
@@ -18,6 +20,10 @@ class ItemOverviewPage extends \Page
     private static string $icon_class = 'font-icon-p-articles';
     private static string $description = 'A page with an overview with your portfolio items.';
 
+    private static array $allowed_children = [
+        ItemDetailPage::class
+    ];
+
     private static array $db = [
         'AllItemDetailPages' => 'Boolean',
     ];
@@ -28,38 +34,43 @@ class ItemOverviewPage extends \Page
 
     public function getCMSFields()
     {
-        $fields = parent::getCMSFields();
+        $this->beforeUpdateCMSFields(
+            function (FieldList $fields) {
+                $fields->addFieldsToTab('Root.Main', [
+                    CheckboxField::create('AllItemDetailPages', 'Display all item detail pages on this page')
+                        ->setDescription('By default a overview page only shows pages under THIS overview page. '),
+                ], 'Title');
 
-        $fields->addFieldsToTab('Root.Main', [
-            CheckboxField::create('AllItemDetailPages', 'Display all item detail pages on this page')
-                ->setDescription('By default a overview page only shows pages under THIS overview page. '),
-        ], 'Title');
+                //$itemGridConfig = GridFieldConfig_Lumberjack::create();
 
-        $itemGridConfig = GridFieldConfig_RecordEditor::create();
+                //if ($this->AllItemDetailPages === 0) {
+                //    $fields->addFieldsToTab('Root.Items', [
+                //        $this->createGridField('Items', ItemDetailPage::get()->where(['ParentID' => $this->ID])),
+                //    ]);
+                //} else {
+                //    $fields->addFieldsToTab('Root.Items', [
+                //        $this->createGridField('Items', ItemDetailPage::get())
+                //    ]);
+                //}
+            }
+        );
 
-        if ($this->AllItemDetailPages === 0) {
-            $fields->addFieldsToTab('Root.Items', [
-                GridField::create('ItemPages',
-                    'Item detail pages',
-                    ItemDetailPage::get()->where(['ParentID' => $this->ID]),
-                    $itemGridConfig)
-            ]);
-        } else {
-            $fields->addFieldsToTab('Root.Items', [
-                GridField::create('ItemPages',
-                    'Item pages',
-                    ItemDetailPage::get(),
-                    $itemGridConfig)
-            ]);
-        }
-
-
-        return $fields;
+        return parent::getCMSFields();
     }
 
-    private static array $allowed_children = [
-        ItemDetailPage::class
-    ];
+    public function getLumberjackPagesForGridfield(): DataList
+    {
+        if ($this->AllItemDetailPages === 0) {
+            return ItemDetailPage::get()->where(['ParentID' => $this->ID]);
+        }
+
+        return ItemDetailPage::get();
+    }
+
+    public function getLumberjackTitle(): string
+    {
+        return 'Items';
+    }
 
     public function getItemPages(?string $limit = null, ?string $all = null): DataList
     {
